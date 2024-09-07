@@ -1,0 +1,37 @@
+<div>
+  <div class="flex align-items-center flex-wrap">
+    <div class="flex-grow-1">
+      <h2>Timezone configuration</h2>
+    </div>
+    <div class="flex-shrink-0">
+      <p-button icon="pi pi-plus" [rounded]="true" [routerLink]="[TIMEZONE_PATH, 'new']" />
+    </div>
+  </div>
+
+  <div class="resultat">
+    @if($result | async; as page){
+      @if (page.totalElements === 0) {
+        <div>Pas de timezone configurée </div>
+      } @else {
+        @for (result of page.content; track result.id) {
+          <div class="surface-200 m-2 p-2 flex align-items-center flex-wrap">
+              <div class="flex-grow-1">{{result.label}}</div>
+              <div class="flex-shrink-0">
+                <p-button icon="pi pi-pencil" [rounded]="true" [routerLink]="[TIMEZONE_PATH, result.id, 'edit']"/>
+                <p-button icon="pi pi-eye" [rounded]="true" severity="secondary" [routerLink]="[TIMEZONE_PATH, result.id]" />
+                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" (onClick)="delete(result)"/>
+              </div>
+          </div>
+        }
+
+        <p-paginator
+          (onPageChange)="onPageChange($event)"
+          [first]="first"
+          [rows]="rows"
+          [totalRecords]="page.totalElements"
+          class="col-12"
+        />
+      }
+    }
+  </div>
+</div>

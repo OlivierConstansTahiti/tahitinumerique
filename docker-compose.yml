@@ -1,0 +1,19 @@
+version: '3.9'
+   
+services:
+  backend:
+    build:
+      context: ./time-zone/
+    ports:
+      - "7373:7373"
+    
+  frontend:
+    build:
+      context: ./time-zone-frontend/
+    volumes:
+      - ./time-zone-frontend/nginx/api_redirection-local.conf:/opt/bitnami/nginx/conf/bitnami/api_redirection-local.conf:ro
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+  

@@ -1,0 +1,22 @@
+<a [routerLink]="['/', ADMIN_PATH]">> Administration</a>
+
+<div class="flex align-items-center flex-wrap">
+  <div class="flex-grow-1">
+    <h2>@if(data){ Modification de la timezone "{{data.label}}" } @else { Création timezone}</h2>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="flex flex-column gap-2 m-2">
+    <label for="label">Label</label>
+    <input pInputText id="label" formControlName="label" type="text"/>
+  </div>
+
+  <div class="flex flex-column gap-2 m-2">
+    <label>Fuseau horaire</label>
+    <p-dropdown formControlName="offsetUTC" [options]="optionsOffsetUTC" styleClass="w-full" />
+  </div>
+
+  <div>
+    <p-button [disabled]="form.invalid"  label="Enregistrer" ariaLabel="Enregistrer" type="submit" />
+  </div>
+</form>

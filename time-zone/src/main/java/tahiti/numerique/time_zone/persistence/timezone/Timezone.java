@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
+import tahiti.numerique.time_zone.persistence.OffsetUTC;
 import tahiti.numerique.time_zone.persistence.audit.Audit;
 import tahiti.numerique.time_zone.persistence.audit.AuditListener;
 import tahiti.numerique.time_zone.persistence.audit.Auditable;
@@ -14,6 +16,7 @@ import tahiti.numerique.time_zone.persistence.audit.Auditable;
 @NoArgsConstructor
 @Getter
 @Setter
+@FieldNameConstants
 public class Timezone implements Auditable {
 
     @Id
@@ -25,6 +28,7 @@ public class Timezone implements Auditable {
 
     private String label;
 
+    @Enumerated(EnumType.STRING)
+    private OffsetUTC offsetUTC;
 
-    //private ZoneOffset timezone;
 }

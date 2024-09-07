@@ -1,0 +1,43 @@
+@if(timezoneDropdownData.items.length < 2) {
+  <div class="text-center">
+    Veuillez configurer 2 fuseaux horaires pour utiliser cette fonctionnalité.
+    <a [routerLink]="['/', ADMIN_PATH, TIMEZONE_PATH, 'new']"> Ajouter un fuseau horaire</a>
+  </div>
+} @else {
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="flex flex-column gap-2 m-2">
+      <label>Choisir un fuseau horaire</label>
+      <div class="w-full">
+        <p-dropdown styleClass="w-full"
+          formControlName="timezone"
+          [options]="timezoneDropdownData.items"
+          optionLabel="label"
+                    [virtualScroll]="true"
+          [virtualScrollOptions]="timezoneDropdownData.options"
+          [virtualScrollItemSize]="43"/>
+      </div>
+    </div>
+    <div class="flex flex-column gap-2 m-2">
+      <label for="dateSearch">Choisir une date</label>
+      <p-calendar id="dateSearch" styleClass="w-full max-w-max"
+                  formControlName="dateSearch"
+                  [showTime]="true"
+                  hourFormat="24"
+      />
+    </div>
+    <div>
+      <p-button [disabled]="form.invalid"  label="Enregistrer" ariaLabel="Enregistrer" type="submit" />
+    </div>
+  </form>
+
+  @if($result) {
+    @if($result | async; as page){
+      <h2>Résultats</h2>
+      @for (data of page.calculateDateItemList; track data) {
+      <div class="p-2">
+        <span class="font-bold">{{data.timezone.label | titlecase}}: </span> {{data.date | date:"dd/MM/yyyy 'à' HH:mm "}}
+      </div>
+      }
+    }
+  }
+}

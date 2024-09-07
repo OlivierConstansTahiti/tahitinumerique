@@ -8,5 +8,4 @@ import tahiti.numerique.time_zone.persistence.audit.Audit;
 public interface AuditMapper {
 
     AuditResponse mapToResponse(Audit audit);
-
 }

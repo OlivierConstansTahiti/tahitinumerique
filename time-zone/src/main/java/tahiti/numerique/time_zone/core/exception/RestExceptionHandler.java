@@ -25,6 +25,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(messageDto, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorMessageResponse> handleException(BusinessException ex) {
+        ErrorMessageResponse messageDto = new ErrorMessageResponse(ex.generateMessage(messageSource));
+        return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessageResponse> handleException(Exception ex) {
         LOGGER.error("Une erreur inattendue s'est produite", ex);

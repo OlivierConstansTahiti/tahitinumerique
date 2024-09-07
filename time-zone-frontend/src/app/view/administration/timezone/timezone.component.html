@@ -1,0 +1,6 @@
+<a [routerLink]="['/', ADMIN_PATH]">> Administration</a>
+<div>
+  <h2>{{data.label}}</h2>
+  <div>Modifié le {{ data.audit.updateDate | date:"dd/MM/yyyy 'à' HH:mm " }}</div>
+  <div>Offset: {{data.offsetUTC}}</div>
+</div>
