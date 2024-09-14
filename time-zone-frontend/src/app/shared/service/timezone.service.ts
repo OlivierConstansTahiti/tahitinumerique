@@ -5,7 +5,7 @@ import {TimezoneRequest, TimezoneResponse} from "../model/timezone.model";
 import {Page} from "../model/page.model";
 import {auditResponseTransform} from "../model/audit.model";
 import {CaculateDateResponse, CaculateDateResquest} from "../model/calculateDate.model";
-import {toUTCDate} from "./date.function";
+import {toDate, toUTCDate} from "./date.function";
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,7 @@ export class TimezoneService {
     return this._http.post<CaculateDateResponse>(`${this.baseUrl}/calculate-date`, form).pipe(
       map((data) => {
         data.calculateDateItemList.forEach((it) => {
-          it.date = toUTCDate(it.date as unknown as string)
+          it.date = toDate(it.date as unknown as string)
         })
         return data
       }))
